@@ -9,13 +9,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(
-  "/files",
-  express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
-);
 
-const pessoaRoutes = require("./routes/pessoaRoutes");
-app.use("/pessoa", pessoaRoutes);
+//const pessoaRoutes = require("./routes/pessoaRoutes");
+app.use(require("./routes/pessoaRoutes"));
 
 mongoose
   .connect(process.env.DB_URL, {
@@ -23,6 +19,6 @@ mongoose
   })
   .then(() => {
     console.log("conectamos ao mongoDB");
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT || 3000);
   })
   .catch((err) => console.log(err));
