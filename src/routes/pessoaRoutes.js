@@ -49,6 +49,10 @@ router.get("/listar", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  res.status(201).json("Hello");
+});
+
 router.get("/usuario/:id", async (req, res) => {
   const id = req.params.id;
 
