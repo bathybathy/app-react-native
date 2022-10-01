@@ -17,6 +17,6 @@ mongoose
   })
   .then(() => {
     console.log("conectamos ao mongoDB");
-    app.listen(process.env.PORT | 3000);
+    app.listen(process.env.PORT);
   })
   .catch((err) => console.log(err));
