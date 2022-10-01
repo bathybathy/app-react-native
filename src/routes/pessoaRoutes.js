@@ -5,41 +5,37 @@ const uploadPessoa = require("../middleware/upload");
 
 const Pessoa = require("../models/Pessoa");
 
-router.post(
-  "/create",
-  multer(uploadPessoa).single("file"),
-  async (req, res) => {
-    const { nome, rua, bairro, cidade, numero, complemento, cep } = req?.body;
-    console.log(req.file);
+router.post("/criar", multer(uploadPessoa).single("file"), async (req, res) => {
+  const { nome, rua, bairro, cidade, numero, complemento, cep } = req?.body;
+  console.log(req.file);
 
-    if (!nome) {
-      res.status(422).json({ error: "Nome é obrigatório" });
-      return;
-    }
-
-    const pessoa = {
-      nome,
-      rua,
-      bairro,
-      cidade,
-      numero,
-      complemento,
-      cep,
-      nomeArquivo: req.file.originalname,
-      tamanho: req.file.size,
-      key: req.file.key,
-      url: req.file.location ?? "",
-    };
-    try {
-      const post = await Pessoa.create(pessoa);
-      res.status(201).json(post);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+  if (!nome) {
+    res.status(422).json({ error: "Nome é obrigatório" });
+    return;
   }
-);
 
-router.get("/listar", async (req, res) => {
+  const pessoa = {
+    nome,
+    rua,
+    bairro,
+    cidade,
+    numero,
+    complemento,
+    cep,
+    nomeArquivo: req.file.originalname,
+    tamanho: req.file.size,
+    key: req.file.key,
+    url: req.file.location ?? "",
+  };
+  try {
+    const post = await Pessoa.create(pessoa);
+    res.status(201).json(post);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+router.get("/", async (req, res) => {
   try {
     const pessoas = await Pessoa.find();
 
@@ -47,10 +43,6 @@ router.get("/listar", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
-});
-
-router.get("/", async (req, res) => {
-  res.status(201).json("Hello");
 });
 
 router.get("/usuario/:id", async (req, res) => {
