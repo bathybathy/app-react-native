@@ -8,13 +8,13 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use("/pessoa", pessoaRoutes);
 app.use(
   "/files",
   express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
 );
 
 const pessoaRoutes = require("./routes/pessoaRoutes");
+app.use("/pessoa", pessoaRoutes);
 
 mongoose
   .connect(process.env.DB_URL, {
