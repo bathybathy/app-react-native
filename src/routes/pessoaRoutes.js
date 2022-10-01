@@ -39,7 +39,7 @@ router.post(
   }
 );
 
-router.get("/", async (req, res) => {
+router.get("/listar", async (req, res) => {
   try {
     const pessoas = await Pessoa.find();
 
