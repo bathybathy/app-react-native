@@ -78,10 +78,10 @@ router.patch(
       numero,
       complemento,
       cep,
-      nomeArquivo: req.file.originalname,
-      tamanho: req.file.size,
-      key: req.file.key,
-      url: req.file.location ?? "",
+      nomeArquivo: req.file?.originalname,
+      tamanho: req.file?.size,
+      key: req.file?.key,
+      url: req.file?.location,
     };
     try {
       const pessoaAtualizada = await Pessoa.updateOne({ _id: id }, pessoa);
