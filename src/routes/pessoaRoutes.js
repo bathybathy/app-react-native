@@ -22,10 +22,10 @@ router.post("/criar", multer(uploadPessoa).single("file"), async (req, res) => {
     numero,
     complemento,
     cep,
-    nomeArquivo: req.file.originalname,
-    tamanho: req.file.size,
-    key: req.file.key,
-    url: req.file.location ?? "",
+    nomeArquivo: req.file?.originalname,
+    tamanho: req.file?.size,
+    key: req.file?.key,
+    url: req.file?.location ?? "",
   };
   try {
     const post = await Pessoa.create(pessoa);
